@@ -1,5 +1,5 @@
 pipeline {
-agent docker
+agent none
 
   stages {
 
@@ -15,11 +15,11 @@ agent docker
           agent {
               docker {
                   image 'aquasec/trivy'
-                  args '-v $WORKSPACE/trivy:/root/.trivycache -e customImage=$customImage'
+                  args '-v $WORKSPACE/trivy:/root/.trivycache --entrypoint'
               }
           }
           steps {
-                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH customImage'           
+                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH ${env.customImage}'           
             }   
         }      
 /*
