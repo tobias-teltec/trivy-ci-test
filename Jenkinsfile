@@ -2,7 +2,7 @@ pipeline {
 agent any
 
 environment {
-    VERSION = sh (script: 'wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/'', , returnStdout:true).trim()
+    VERSION = sh (script: '(wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')', , returnStdout:true).trim()
 }
   stages {
       stage("Build image") {
