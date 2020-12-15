@@ -22,9 +22,12 @@ pipeline {
             agent {
                 docker {
                     image 'aquasec/trivy'
-                    args '-v $WORKSPACE/trivycache/:/root/.trivycache --cache-dir /root/.trivycache --no-progress --severity HIGH customImage'
+                    args '-v $WORKSPACE/trivycache/:/root/.trivycache'
                 }
-            }   
+            }
+            steps {
+                sh 'trivy --exit-code 0 --cache-dir /root/.trivycache --no-progress --severity HIGH customImage'
+            }       
       }  
 
       stage("Push image") {
