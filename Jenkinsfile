@@ -1,27 +1,24 @@
 pipeline {
-agent none
+agent any
 
   stages {
 
       stage("Build image") {
                 steps {
-                script {
+                  script {
                   customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
                 }
             }
       }
 
       stage("Trivy Scan") {
-          agent {
-              docker {
-                  image 'aquasec/trivy'
-                  args '-v $WORKSPACE/trivy:/root/.trivycache --entrypoint'
-              }
-          }
-          steps {
-                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH ${env.customImage}'           
+           steps {
+             script {
+               sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin'
+               sh 'trivy --exit-code 0 --cache-dir $WORKSPACE/.trivycache/ --no-progress --severity HIGH ${env.customImage}'           
             }   
-        }      
+        }    
+    }  
 /*
       stage("Push image") {
             steps {
