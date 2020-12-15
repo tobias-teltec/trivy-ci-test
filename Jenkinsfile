@@ -4,12 +4,6 @@ pipeline {
 
   stages {
 
-    stage('Checkout Source') {
-      steps {
-        git url:'https://github.com/tobias-teltec/trivy-ci-test.git', branch:'main'
-      }
-    }
-
       stage("Build image") {
             steps {
                 script {
