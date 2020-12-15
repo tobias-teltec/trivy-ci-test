@@ -16,11 +16,14 @@ pipeline {
             steps {
                 script {
                 /*Baixando Trivy*/
-                   sh 'export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')'
-                   sh 'wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz'
-                   sh 'tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz'
-                /*Executando Trivy*/    
-                    sh 'trivy --exit-code 0 --cache-dir .trivycache/ --no-progress --severity HIGH customImage'
+                   sh '''#!/bin/sh
+                   
+                         export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')'
+                         wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz'
+                         tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz'
+              
+                         trivy --exit-code 0 --cache-dir .trivycache/ --no-progress --severity HIGH customImage
+                         '''
             }       
       }  
 
