@@ -22,8 +22,7 @@ pipeline {
               
                          trivy --exit-code 0 --cache-dir .trivycache/ --no-progress --severity HIGH customImage
                          '''
-            }       
-      }  
+            }         
 
       stage("Push image") {
             steps {
@@ -34,4 +33,3 @@ pipeline {
             }
         }
     }
-}
