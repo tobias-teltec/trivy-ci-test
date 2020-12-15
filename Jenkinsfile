@@ -6,9 +6,8 @@ agent any
       stage("Build image") {
                 steps {
                 script {
-                  sh 'export customImage=tobiasparaiso/trivy:${env.BUILD_ID}'
-                  sh 'docker build -t $customImage .'
-                 }
+                  def customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
+                }
             }
       }
 
@@ -16,7 +15,7 @@ agent any
           agent {
               docker {
                   image 'aquasec/trivy'
-                  args '-v $WORKSPACE/trivy:/root/.trivycache --entrypoint='
+                  args '-v $WORKSPACE/trivy:/root/.trivycache -e customImage=$customImage'
               }
           }
           steps {
