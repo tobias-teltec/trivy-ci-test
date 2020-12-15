@@ -4,7 +4,7 @@ agent any
   stages {
 
       stage("Build image") {
-          agent {docker}
+          agent { docker }
             steps {
                 script {
                   def customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
