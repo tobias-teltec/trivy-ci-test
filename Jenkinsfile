@@ -16,9 +16,9 @@ pipeline {
             steps {
                 script {
                 /*Baixando Trivy*/
-                    sh 'export TRIVY_VERSION=$(wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')' 
-                    sh 'echo $TRIVY_VERSION'
-                    sh 'wget --no-verbose https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz -O - | tar -zxvf -'
+                   sh 'export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')'
+                   sh 'wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz'
+                   sh 'tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz'
                 /*Executando Trivy*/    
                     sh 'trivy --exit-code 0 --cache-dir .trivycache/ --no-progress --severity HIGH customImage'
             }       
