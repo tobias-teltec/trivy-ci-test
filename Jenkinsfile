@@ -4,7 +4,7 @@ agent any
   stages {
 
       stage("Build image") {
-                    customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
+                    customImage = docker.build 'tobiasparaiso/trivy:${env.BUILD_ID}'
               }
 
       stage("Trivy Scan") {
