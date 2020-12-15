@@ -13,9 +13,7 @@ pipeline {
       }
     
       stage("Trivy Scan") {
-            steps {
-                script {
-                /*Baixando Trivy*/
+          
                    sh '''#!/bin/sh
                    
                          export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')'
