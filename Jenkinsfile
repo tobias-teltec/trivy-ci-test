@@ -1,12 +1,12 @@
 pipeline {
-agent any
+agent docker
 
   stages {
 
       stage("Build image") {
                 steps {
                 script {
-                  def customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
+                  customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
                 }
             }
       }
@@ -19,7 +19,7 @@ agent any
               }
           }
           steps {
-                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH $customImage'           
+                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH customImage'           
             }   
         }      
 /*
