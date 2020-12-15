@@ -7,7 +7,7 @@ pipeline {
       stage("Build image") {
             steps {
                 script {
-                    customImage = docker.build("trivy:${env.BUILD_ID}")
+                  def customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
                 }
             }
       }
