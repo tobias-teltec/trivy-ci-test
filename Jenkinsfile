@@ -20,7 +20,7 @@ pipeline {
               }
           }
           steps {
-                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH customImage'           
+                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH $customImage'           
             }   
         }      
 
