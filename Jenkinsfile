@@ -1,10 +1,9 @@
 pipeline {
 
-  agent any
-
   stages {
 
       stage("Build image") {
+          agent {dockerfile true}
             steps {
                 script {
                   def customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
