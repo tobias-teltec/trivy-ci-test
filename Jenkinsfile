@@ -2,7 +2,7 @@ pipeline {
 agent any
 
 environment {
-    VERSION= '(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')'
+    VERSION = sh (script: 'wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/'', , returnStdout:true).trim()
 }
   stages {
       stage("Build image") {
@@ -15,6 +15,7 @@ environment {
       stage("Trivy Scan") {
           steps {
               script {
+                        sh "echo ${VERSION}"
                         sh "wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz"
                         sh "tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz"
                         sh "./trivy --exit-code 0 --no-progress --severity HIGH tobiasparaiso/trivy:${env.BUILD_ID}"
