@@ -1,7 +1,8 @@
 pipeline {
 agent any
-environment
+environment {
   IMAGE = 'tobiasparaiso/trivy:$BUILD_ID'
+  }
   stages {
 
       stage("Build image") {
