@@ -6,11 +6,9 @@ pipeline {
 
       stage("Build image") {
             steps {
-                script {
                   def customImage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
                 }
             }
-      }
     
       stage("Trivy Scan") {
           agent {
@@ -20,16 +18,14 @@ pipeline {
               }
           }
           steps {
-                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH $customImage'           
+                   sh 'trivy --exit-code 0 --cache-dir /root/.trivycache/ --no-progress --severity HIGH customImage'           
             }   
         }      
 
       stage("Push image") {
             steps {
-                script {
                             customImage.push()
                     }
                 }
             }
         }
-    }
