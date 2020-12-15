@@ -7,7 +7,6 @@ agent any
               script {
                 myimage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
                 sh "export myimage=tobiasparaiso/trivy:${env.BUILD_ID}" 
-                sh "echo ${env.myimage}"
               }
          }
       }
