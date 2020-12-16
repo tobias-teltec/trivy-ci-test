@@ -13,9 +13,9 @@ agent any
       stage("Trivy Scan") {
           steps {
               script {
-                        sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v "$WORKSPACE"/trivycache:/root/.trivycache/ aquasec/trivy --exit-code 0 --cache-dir /root/.trivycache/ --format template --template "@contrib/junit.tpl" -o container-scan-report.xml tobiasparaiso/trivy:"$BUILD_ID"'
-                        sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v "$WORKSPACE"/trivycache:/root/.trivycache/ aquasec/trivy --exit-code 0 --no-progress --cache-dir /root/.trivycache/ --severity MEDIUM,LOW tobiasparaiso/trivy:"$BUILD_ID"'
-                        sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v "$WORKSPACE"/trivycache:/root/.trivycache/ aquasec/trivy --exit-code 0 --no-progress --cache-dir /root/.trivycache/ --severity CRITICAL,HIGH tobiasparaiso/trivy:"$BUILD_ID"'
+                        sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$WORKSPACE"/:/root/.trivycache/ aquasec/trivy --exit-code 0 --cache-dir /root/.trivycache/ --format template --template "@contrib/junit.tpl" -o /root/container-scan-report.xml tobiasparaiso/trivy:"$BUILD_ID"'
+                        sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$WORKSPACE"/:/root/.trivycache/ aquasec/trivy --exit-code 0 --no-progress --cache-dir /root/.trivycache/ --severity MEDIUM,LOW tobiasparaiso/trivy:"$BUILD_ID"'
+                        sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$WORKSPACE"/:/root/.trivycache/ aquasec/trivy --exit-code 0 --no-progress --cache-dir /root/.trivycache/ --severity CRITICAL,HIGH tobiasparaiso/trivy:"$BUILD_ID"'
                      }
               }   
         }
