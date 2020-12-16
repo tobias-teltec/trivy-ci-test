@@ -5,7 +5,7 @@ agent any
       stage("Build image") {
           steps {
               script {
-             def myimage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
+                myimage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
               }
          }
       }
@@ -24,7 +24,7 @@ agent any
             steps {
                 script {
                      docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                            myimage.push("latest")
+                            docker.push("tobiasparaiso/trivy:$BUILD_ID")
                     }
                 }
             }
