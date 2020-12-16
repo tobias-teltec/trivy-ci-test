@@ -24,7 +24,7 @@ agent any
    
 post {
         always {
-              junit '/var/lib/jenkins/trivycache/scan-report.xml'
+              junit 'trivycache/scan-report.xml'
         }
     }
 }
