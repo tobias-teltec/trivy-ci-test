@@ -23,7 +23,7 @@ agent any
    
 post {
         always {
-              junit 'scan-report.xml'
+              junit '"$WORKSPACE"/scan-report.xml'
         }
     }
 }
