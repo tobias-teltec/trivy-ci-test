@@ -10,15 +10,9 @@ agent any
          }
       }
       stage("Trivy Scan") {
-          agent {
-              docker {
-                  image 'aquasec/trivy'
-                  args '-v "$WORKSPACE"/trivycache/:/root/.trivycache/ --entrypoint=/bin/sh'
-              }
-          }
           steps {
-                        sh "trivy --exit-code 0 --no-progress --severity MEDIUM,LOW tobiasparaiso/trivy:${env.BUILD_ID}"
-                        sh "trivy --exit-code 1 --cache-dir .trivycache/ --severity HIGH,CRITICAL --no-progress tobiasparaiso/trivy:${env.BUILD_ID}"      
+              script {
+                        sh "docker run -v /var/run/docker.sock:/var/run/docker.sock -v ${WORKSPACE}/trivycache:/root/.trivycache/ aquasec/trivy --exit-code 0 --no-progress --severity MEDIUM,LOW tobiasparaiso/trivy:${env.BUILD_ID}"
                      }
               }   
         }    
@@ -32,3 +26,4 @@ agent any
                 }
             }
                */
+}
