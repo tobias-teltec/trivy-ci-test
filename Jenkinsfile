@@ -5,10 +5,11 @@ agent any
       stage("Build image") {
           steps {
               script {
-                myimage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
+             def myimage = docker.build("tobiasparaiso/trivy:${env.BUILD_ID}")
               }
          }
       }
+
       stage("Trivy Scan") {
           steps {
               script {
