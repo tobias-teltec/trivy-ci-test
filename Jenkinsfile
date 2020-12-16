@@ -12,8 +12,8 @@ agent any
       stage("Trivy Scan") {
           agent {
               docker {
-                  image "aquasec/trivy"
-                  args "-v ${env.WORKSPACE}/trivycache/:/root/.trivycache/ --entrypoint=/bin/sh"
+                  image 'aquasec/trivy'
+                  args '-v "$WORKSPACE"/trivycache/:/root/.trivycache/ --entrypoint=/bin/sh'
               }
           }
           steps {
