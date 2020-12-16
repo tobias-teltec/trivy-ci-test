@@ -24,6 +24,7 @@ agent any
                 script {
                      docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                             myimage.push()
+                            myimage.push("latest")
                     }
                 }
             }
