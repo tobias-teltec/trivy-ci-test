@@ -17,16 +17,16 @@ agent any
                         sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v "$WORKSPACE"/trivycache:/root/.trivycache/ aquasec/trivy --exit-code 0 --no-progress --severity CRITICAL,HIGH tobiasparaiso/trivy:"$BUILD_ID"'
                      }
               }   
-        }    
-    }  
+        }      
 
       stage("Push image") {
             steps {
                 script {
                      docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                            docker.push("tobiasparaiso/trivy:$BUILD_ID")
+                            myimage.push()
                     }
                 }
             }
-      }
+        }
+    }
 }
