@@ -19,17 +19,8 @@ agent any
                         sh 'chown -R jenkins. /var/lib/jenkins/trivycache/'
                      }
               }   
-        }
-  }
-   
-post {
-        always {
-              junit 'trivycache/scan-report.xml'
-        }
-    }
-}
-        
-/*
+        }  
+
       stage("Push image") {
             steps {
                 script {
@@ -42,4 +33,11 @@ post {
         }
     }
 }
-*/
+/*   
+post {
+        always {
+              junit 'trivycache/scan-report.xml'
+        }
+    }
+}
+*/ 
