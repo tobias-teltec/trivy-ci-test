@@ -16,8 +16,8 @@ agent any
                         sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/jenkins/trivycache/:/root/.cache/ aquasec/trivy --exit-code 0 --format template --template "@contrib/junit.tpl" -o /root/.cache/scan-report"$BUILD_ID".xml tobiasparaiso/trivy:"$BUILD_ID"'
                         sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/jenkins/trivycache/:/root/.cache/ aquasec/trivy --exit-code 0 --no-progress --severity MEDIUM,LOW tobiasparaiso/trivy:"$BUILD_ID"'
                         sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/jenkins/trivycache/:/root/.cache/ aquasec/trivy --exit-code 0 --no-progress --severity CRITICAL,HIGH tobiasparaiso/trivy:"$BUILD_ID"'
-                        sh 'cp -rf /var/lib/jenkins/trivycache/scan-report.xml $WORKSPACE/reports/scan-report.xml'
-                        junit '/var/lib/jenkins/workspace/trivy_scan/reports/scan-report.xml'
+                        sh 'cp -rf /var/lib/jenkins/trivycache/scan-report.xml $WORKSPACE/scan-report.xml'
+                        junit '/var/lib/jenkins/workspace/trivy_scan/scan-report.xml'
                     }
                 }   
             }  
