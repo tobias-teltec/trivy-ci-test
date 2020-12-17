@@ -1,0 +1,35 @@
+Trivy vs Anchore
+Clair:
+- Clair clients depreciados
+  Difícil instalação
+  Documentação fraca
+
+Anchore:
+- Mais personalização no que diz respeito a policies
+  Possui Helm para instalação no k8s
+  Possui Anchore Admission Controller for k8s
+  Possui plugin do Jenkins
+
+Trivy:
+- Mais simples de instalar
+  Mais rápido
+  Não precisa de banco de dados (stateless)
+  Banco de dados CVE atualizado mais rapidamente e com mais frequência
+  Trata a base de dados para evitar duplicidade (base menor em torno de 17MB)
+  Opção de base de dados --light para CI-CD
+  Maior precisão de vulnerabilidades principalmente para imagens Alpine 
+  Starboard tool para scanear containers dentro do cluster k8s  
+    
+
+
+
+Explicar sobre o GitLab ()
+
+#Construção imagens PJe
+build.sh:
+ constroi modulo especifico;
+ constroi e faz push no registry;
+ Docker build no dockerfile dentro de src (https://git.pje.csjt.jus.br/infra/pje/-/blob/master/pje-docker/pje-sao/src/Dockerfile)
+
+build-all.sh - constroi todos os modulos, executa build.sh para todos os modulos.
+
