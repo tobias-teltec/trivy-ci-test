@@ -23,7 +23,7 @@ agent any
                 }   
             }  
 
-      stage("Push image") {0
+      stage("Push image") {
             steps {
                 script {
                      docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
